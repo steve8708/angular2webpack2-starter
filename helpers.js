@@ -16,6 +16,18 @@ function checkNodeImport(context, request, cb) {
 
 function includeClientPackages(packages) {
   return function(context, request, cb) {
+    if (request.indexOf('@angular') === 0) {
+      return cb();
+    }
+
+    if (request.indexOf('angular2-') === 0) {
+      return cb();
+    }
+
+    if (request.indexOf('@ngrx') === 0) {
+      return cb();
+    }
+
     if (packages && packages.indexOf(request) !== -1) {
       return cb();
     }

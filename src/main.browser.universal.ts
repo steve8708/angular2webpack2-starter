@@ -2,12 +2,14 @@ import './polyfills.browser';
 import './rxjs.imports';
 
 import { enableProdMode } from '@angular/core';
-import { platformUniversalDynamic } from 'angular2-universal';
+import { platformUniversalDynamic } from 'angular2-universal/browser';
 import { AppModule } from './app/app.module.universal.browser';
 
 if ('production' === ENV) {
   enableProdMode();
 }
+
+console.log('correct file');
 
 export function main() {
   return platformUniversalDynamic().bootstrapModule(AppModule)

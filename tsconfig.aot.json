@@ -19,11 +19,13 @@
     "src/compiled",
     "src/**/*.e2e.ts",
     "src/**/*.spec.ts",
-    "src/server.ts",
     "src/main.browser.aot.ts",
+    "src/main.browser.ts",
     "src/main.browser.universal.ts",
+    "src/server.ts",
+    // "src/app/app.module.universal.node.ts",
     "src/app/app.module.universal.browser.ts",
-    "src/app/app.module.universal.node.ts"
+    "src/app/app.module.ts"
   ],
   "awesomeTypescriptLoaderOptions": {
     "useWebpackText": true,
@@ -35,6 +37,7 @@
   "atom": { "rewriteTsconfig": false },
   "angularCompilerOptions": {
    "genDir": "src/compiled",
-   "skipMetadataEmit" : true
+   "skipMetadataEmit" : true,
+   "debug": true
  }
 }

@@ -36,7 +36,7 @@
     "clean:dist": "npm run rimraf -- dist .awcache",
     "clean:compile": "npm run rimraf -- \"src/compiled\" ",
     "compile": "npm run compile:aot",
-    "compile:aot": "npm run sass && npm run clean:compile && npm run ngc && npm run build:aot",
+    "compile:aot": "npm run sass && npm run ngc && npm run build:aot",
     "compile:universal": "npm run sass && npm run clean:compile && npm run ngc:universal && npm run build:universal:aot",
     "compile:dev": "npm run sass && npm run clean:compile && npm run ngc && npm run build:aot:dev",
     "compile:only": "npm run clean:compile && npm run sass && npm run ngc",
@@ -109,6 +109,7 @@
     "methods": "1.1.2",
     "ngrx-store-freeze": "0.1.0",
     "ngrx-store-logger": "0.1.7",
+    "parse5": "^2.2.2",
     "reflect-metadata": "0.1.8",
     "rxjs": "5.0.0-beta.12",
     "zone.js": "0.6.25"

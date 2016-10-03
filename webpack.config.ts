@@ -1,6 +1,6 @@
 /* tslint:disable: variable-name max-line-length */
 /**
- * Try to not make your own edits to this file, use the constants folder instead. 
+ * Try to not make your own edits to this file, use the constants folder instead.
  * If more constants should be added file an issue or create PR.
  */
 import 'ts-helpers';
@@ -12,6 +12,7 @@ import {
   MY_CLIENT_PLUGINS, MY_CLIENT_PRODUCTION_PLUGINS, MY_CLIENT_RULES,
   MY_SERVER_RULES, MY_SERVER_INCLUDE_CLIENT_PACKAGES
 } from './constants';
+import * as path from 'path';
 
 const {
   ContextReplacementPlugin,
@@ -33,7 +34,7 @@ const root = require('./helpers.js').root;
 
 const ENV = process.env.npm_lifecycle_event;
 const AOT = ENV === 'build:aot' || ENV === 'build:aot:dev' || ENV === 'server:aot' || ENV === 'watch:aot';
-const isProd = ENV === 'build:prod' || ENV === 'server:prod' || ENV === 'watch:prod' || ENV === 'build:aot' || ENV === 'build:universal';
+const isProd = false; // ENV === 'build:prod' || ENV === 'server:prod' || ENV === 'watch:prod' || ENV === 'build:aot' || ENV === 'compile:aot' || ENV === 'build:universal';
 const HMR = hasProcessFlag('hot');
 const UNIVERSAL = ENV === 'build:universal';
 
@@ -144,11 +145,11 @@ const clientConfig = function webpackConfig(): WebpackConfig {
   if (!UNIVERSAL) {
     if (AOT) {
       config.entry = {
-        main: './src/main.browser.aot'
+        main: './src/main.browser.universal'
       };
     } else {
       config.entry = {
-        main: './src/main.browser'
+        main: './src/main.browser.universal'
       };
     }
   } else {
@@ -156,6 +157,8 @@ const clientConfig = function webpackConfig(): WebpackConfig {
       main: './src/main.browser.universal'
     };
   }
+
+  console.log('entry', config.entry.main);
 
   config.output = {
     path: root('dist/client'),
@@ -225,6 +228,15 @@ const serverConfig: WebpackConfig = {
     '@angular2-material/tabs',
     '@angular2-material/toolbar',
     '@angular2-material/tooltip',
+    '@angular/core',
+    '@angular/common',
+    '@angular/http',
+    'angular2-universal',
+    'angular2-platform-node',
+    'angular2-express-engine',
+    '@angular/platform-browser',
+    '@angular/platform-server',
+    '@angular/router',
     ...MY_SERVER_INCLUDE_CLIENT_PACKAGES
   ]),
   node: {
@@ -238,20 +250,24 @@ const serverConfig: WebpackConfig = {
 
 const defaultConfig = {
   resolve: {
-    extensions: ['.ts', '.js', '.json']
+    extensions: ['.ts', '.js', '.json'],
+    modules: [
+      path.join(process.cwd(), 'node_modules'),
+      'node_modules',
+    ]
   }
 };
 
-if (!UNIVERSAL) {
-  console.log('BUILDING APP');
-  module.exports = webpackMerge({}, defaultConfig, commonConfig, clientConfig);
-} else {
+// if (!UNIVERSAL) {
+//   console.log('BUILDING APP');
+//   module.exports = webpackMerge({}, defaultConfig, commonConfig, clientConfig);
+// } else {
   console.log('BUILDING UNIVERSAL');
   module.exports = [
     webpackMerge({}, defaultConfig, commonConfig, clientConfig),
     webpackMerge({}, defaultConfig, commonConfig, serverConfig)
   ];
-}
+// }
 
 // // Types
 interface WebpackConfig {

@@ -37,13 +37,14 @@ export class AppComponent implements AfterContentInit {
 
   activateEvent(event) {
     if (ENV === 'development') {
-      console.log('Activate Event:', event);
+      // TODO: !isBrowser
+      // console.log('Activate Event:', event);
     }
   }
 
   deactivateEvent(event) {
     if (ENV === 'development') {
-      console.log('Deactivate Event', event);
+      // console.log('Deactivate Event', event);
     }
   }
 }
