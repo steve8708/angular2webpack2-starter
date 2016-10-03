@@ -18,7 +18,6 @@
     "node_modules",
     "src/compiled",
     "src/**/*.e2e.ts",
-    "src/**/*.spec.ts",
     "src/server.ts",
     "src/main.browser.aot.ts",
     "src/main.browser.universal.ts",
